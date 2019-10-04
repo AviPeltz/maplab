@@ -4,7 +4,6 @@
 
 LOCALIZATION_MAP_INPUT=$1
 LOCALIZATION_MAP_OUTPUT=$2
-ROSBAG=$3
 NCAMERA_CALIBRATION="$ROVIO_CONFIG_DIR/ncamera-euroc.yaml"
 IMU_PARAMETERS_MAPLAB="$ROVIO_CONFIG_DIR/imu-icm20602.yaml"
 REST=$@
@@ -14,11 +13,17 @@ rosrun rovioli rovioli \
   --v=2 \
   --ncamera_calibration=$NCAMERA_CALIBRATION  \
   --imu_parameters_maplab=$IMU_PARAMETERS_MAPLAB \
-  --publish_debug_markers  \
-  --datasource_type="rosbag" \
+  --publish_debug_markers \
+  --datasource_type="rostopic" \
   --optimize_map_to_localization_map=false \
   --vio_localization_map_folder=$LOCALIZATION_MAP_INPUT \
   --save_map_folder=$LOCALIZATION_MAP_OUTPUT \
   --rovio_enable_frame_visualization=false \
-  --map_builder_save_image_as_resources=false \
-  --datasource_rosbag=$ROSBAG $REST
+  --rovioli_visualize_map=true \
+  --map_builder_save_image_as_resources=false $REST
+
+
+
+
+
+
