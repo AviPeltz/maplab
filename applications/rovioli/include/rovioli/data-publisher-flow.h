@@ -16,6 +16,7 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Vector3Stamped.h>
+#include <nav_msgs/Odometry.h>
 #include <ros/ros.h>
 #pragma GCC diagnostic pop
 
@@ -26,10 +27,15 @@ namespace rovioli {
 class DataPublisherFlow {
  public:
   const std::string kRosNamespace = "maplab_rovio";
+  const std::string kRosNamespace1 = "kiwi_loc"; // Kiwi
   const std::string kGeneralTopicPrefix = kRosNamespace + "/";
+  const std::string kGeneralTopicPrefix1 = kRosNamespace1 + "/"; // Kiwi
   const std::string kTopicPoseMission = kGeneralTopicPrefix + "T_M_I";
+  const std::string kTopicOdomMission = kGeneralTopicPrefix1 + "M_I"; // Kiwi
   const std::string kTopicPoseGlobal = kGeneralTopicPrefix + "T_G_I";
+  const std::string kTopicOdomGlobal = kGeneralTopicPrefix1 + "G_I"; // Kiwi
   const std::string kTopicBaseframe = kGeneralTopicPrefix + "T_G_M";
+  const std::string kTopicOdomframe = kGeneralTopicPrefix1 + "G_M"; // Kiwi
   const std::string kTopicVelocity = kGeneralTopicPrefix + "velocity_I";
   const std::string kTopicBiasAcc = kGeneralTopicPrefix + "bias_acc";
   const std::string kTopicBiasGyro = kGeneralTopicPrefix + "bias_gyro";
@@ -55,6 +61,9 @@ class DataPublisherFlow {
   ros::Publisher pub_pose_T_M_I_;
   ros::Publisher pub_pose_T_G_I_;
   ros::Publisher pub_baseframe_T_G_M_;
+  ros::Publisher pub_odom_M_I_; // Kiwi
+  ros::Publisher pub_odom_G_I_; // Kiwi
+  ros::Publisher pub_odom_G_M_; // Kiwi
   ros::Publisher pub_velocity_I_;
   ros::Publisher pub_imu_acc_bias_;
   ros::Publisher pub_imu_gyro_bias_;

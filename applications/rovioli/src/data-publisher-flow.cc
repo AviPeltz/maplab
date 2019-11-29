@@ -53,10 +53,16 @@ DataPublisherFlow::DataPublisherFlow()
 void DataPublisherFlow::registerPublishers() {
   pub_pose_T_M_I_ =
       node_handle_.advertise<geometry_msgs::PoseStamped>(kTopicPoseMission, 1);
+  pub_odom_M_I_ =
+      node_handle_.advertise<nav_msgs::Odometry>(kTopicOdomMission, 1); // Kiwi
   pub_pose_T_G_I_ =
       node_handle_.advertise<geometry_msgs::PoseStamped>(kTopicPoseGlobal, 1);
+  pub_odom_G_I_ =
+      node_handle_.advertise<nav_msgs::Odometry>(kTopicOdomGlobal, 1); // Kiwi
   pub_baseframe_T_G_M_ =
       node_handle_.advertise<geometry_msgs::PoseStamped>(kTopicBaseframe, 1);
+  pub_odom_G_M_ =
+      node_handle_.advertise<nav_msgs::Odometry>(kTopicOdomframe, 1); // Kiwi
   pub_velocity_I_ =
       node_handle_.advertise<geometry_msgs::Vector3Stamped>(kTopicVelocity, 1);
   pub_imu_acc_bias_ =
@@ -181,10 +187,14 @@ void DataPublisherFlow::publishVinsState(
   // Publish pose in mission frame.
   const aslam::Transformation& T_M_I = vinode.get_T_M_I();
   geometry_msgs::PoseStamped T_M_I_message;
+  nav_msgs::Odometry M_I_message;
   tf::poseStampedKindrToMsg(
       T_M_I, timestamp_ros, visualization::kDefaultMissionFrame,
       &T_M_I_message);
   pub_pose_T_M_I_.publish(T_M_I_message);
+  M_I_message.header.stamp = T_M_I_message.header.stamp;
+  M_I_message.pose.pose = T_M_I_message.pose;
+  pub_odom_M_I_.publish(M_I_message);
   visualization::publishTF(
       T_M_I, visualization::kDefaultMissionFrame,
       visualization::kDefaultImuFrame, timestamp_ros);
@@ -192,18 +202,26 @@ void DataPublisherFlow::publishVinsState(
   // Publish pose in global frame.
   aslam::Transformation T_G_I = T_G_M * T_M_I;
   geometry_msgs::PoseStamped T_G_I_message;
+  nav_msgs::Odometry G_I_message;
   tf::poseStampedKindrToMsg(
       T_G_I, timestamp_ros, visualization::kDefaultMapFrame, &T_G_I_message);
   pub_pose_T_G_I_.publish(T_G_I_message);
+  G_I_message.header.stamp = T_G_I_message.header.stamp;
+  G_I_message.pose.pose = T_G_I_message.pose;
+  pub_odom_G_I_.publish(G_I_message);
   visualization::publishTF(
       T_G_I, visualization::kDefaultMapFrame, visualization::kDefaultImuFrame,
       timestamp_ros);
 
   // Publish baseframe transformation.
   geometry_msgs::PoseStamped T_G_M_message;
+  nav_msgs::Odometry G_M_message;
   tf::poseStampedKindrToMsg(
       T_G_M, timestamp_ros, visualization::kDefaultMapFrame, &T_G_M_message);
   pub_baseframe_T_G_M_.publish(T_G_M_message);
+  G_M_message.header.stamp = T_G_M_message.header.stamp;
+  G_M_message.pose.pose = T_G_M_message.pose;
+  pub_odom_G_M_.publish(G_M_message);
   visualization::publishTF(
       T_G_M, visualization::kDefaultMapFrame,
       visualization::kDefaultMissionFrame, timestamp_ros);
