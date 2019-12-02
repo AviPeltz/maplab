@@ -193,6 +193,7 @@ void DataPublisherFlow::publishVinsState(
       &T_M_I_message);
   pub_pose_T_M_I_.publish(T_M_I_message);
   M_I_message.header.stamp = T_M_I_message.header.stamp;
+  M_I_message.header.frame_id = "mission";
   M_I_message.pose.pose = T_M_I_message.pose;
   pub_odom_M_I_.publish(M_I_message);
   visualization::publishTF(
@@ -207,6 +208,7 @@ void DataPublisherFlow::publishVinsState(
       T_G_I, timestamp_ros, visualization::kDefaultMapFrame, &T_G_I_message);
   pub_pose_T_G_I_.publish(T_G_I_message);
   G_I_message.header.stamp = T_G_I_message.header.stamp;
+  G_I_message.header.frame_id = "map";
   G_I_message.pose.pose = T_G_I_message.pose;
   pub_odom_G_I_.publish(G_I_message);
   visualization::publishTF(
@@ -220,6 +222,7 @@ void DataPublisherFlow::publishVinsState(
       T_G_M, timestamp_ros, visualization::kDefaultMapFrame, &T_G_M_message);
   pub_baseframe_T_G_M_.publish(T_G_M_message);
   G_M_message.header.stamp = T_G_M_message.header.stamp;
+  G_M_message.header.frame_id = "map";
   G_M_message.pose.pose = T_G_M_message.pose;
   pub_odom_G_M_.publish(G_M_message);
   visualization::publishTF(
