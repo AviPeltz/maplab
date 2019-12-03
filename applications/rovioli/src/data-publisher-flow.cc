@@ -63,6 +63,8 @@ void DataPublisherFlow::registerPublishers() {
       node_handle_.advertise<geometry_msgs::PoseStamped>(kTopicBaseframe, 1);
   pub_odom_G_M_ =
       node_handle_.advertise<nav_msgs::Odometry>(kTopicOdomframe, 1); // Kiwi
+  pub_odom_G_I_global_ =
+      node_handle_.advertise<nav_msgs::Odometry>(kTopicOdomGlobalGlo, 1); // Kiwi
   pub_velocity_I_ =
       node_handle_.advertise<geometry_msgs::Vector3Stamped>(kTopicVelocity, 1);
   pub_imu_acc_bias_ =
@@ -210,6 +212,9 @@ void DataPublisherFlow::publishVinsState(
   G_I_message.header.stamp = T_G_I_message.header.stamp;
   G_I_message.header.frame_id = "base_link";
   G_I_message.pose.pose = T_G_I_message.pose;
+  G_I_global_.header.stamp = T_G_I_message.header.stamp;
+  G_I_global_.header.frame_id = "base_link";
+  G_I_global_.pose.pose = T_G_I_message.pose;
   pub_odom_G_I_.publish(G_I_message);
   visualization::publishTF(
       T_G_I, visualization::kDefaultMapFrame, visualization::kDefaultImuFrame,
@@ -296,7 +301,7 @@ void DataPublisherFlow::localizationCallback(
   sphere.color = visualization::kCommonRed;
   sphere.alpha = 0.8;
   T_G_I_loc_spheres_.push_back(sphere);
-
+  pub_odom_G_I_global_.publish(G_I_global_);
   constexpr size_t kMarkerId = 0u;
   visualization::publishSpheres(
       T_G_I_loc_spheres_, kMarkerId, visualization::kDefaultMapFrame, "debug",

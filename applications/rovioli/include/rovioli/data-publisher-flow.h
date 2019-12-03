@@ -36,6 +36,7 @@ class DataPublisherFlow {
   const std::string kTopicOdomGlobal = kGeneralTopicPrefix1 + "G_I"; // Kiwi
   const std::string kTopicBaseframe = kGeneralTopicPrefix + "T_G_M";
   const std::string kTopicOdomframe = kGeneralTopicPrefix1 + "G_M"; // Kiwi
+  const std::string kTopicOdomGlobalGlo = kGeneralTopicPrefix1 + "G_I_Global"; // Kiwi
   const std::string kTopicVelocity = kGeneralTopicPrefix + "velocity_I";
   const std::string kTopicBiasAcc = kGeneralTopicPrefix + "bias_acc";
   const std::string kTopicBiasGyro = kGeneralTopicPrefix + "bias_gyro";
@@ -64,10 +65,12 @@ class DataPublisherFlow {
   ros::Publisher pub_odom_M_I_; // Kiwi
   ros::Publisher pub_odom_G_I_; // Kiwi
   ros::Publisher pub_odom_G_M_; // Kiwi
+  ros::Publisher pub_odom_G_I_global_; // Kiwi
   ros::Publisher pub_velocity_I_;
   ros::Publisher pub_imu_acc_bias_;
   ros::Publisher pub_imu_gyro_bias_;
   ros::Publisher pub_extrinsics_T_C_Bs_;
+  nav_msgs::Odometry G_I_global_;
 
   common::TimeoutCounter map_publisher_timeout_;
 
