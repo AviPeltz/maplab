@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Script to run ROVIOLI from a Euroc rosbag data source with localization enabled.
-# Usage: tutorial_euroc <localization map path> <output save folder> <rosbag path> [<additional rovioli flags>]
+# Script to run ROVIOLI and perform localization by using a Rosbag.
+# Usage: kiwicampus_localization <localization map path> <output save folder> <rosbag path> [<additional rovioli flags>]
 
 LOCALIZATION_MAP_INPUT=$1
 LOCALIZATION_MAP_OUTPUT=$2
@@ -20,6 +20,6 @@ rosrun rovioli rovioli \
   --vio_localization_map_folder=$LOCALIZATION_MAP_INPUT \
   --save_map_folder=$LOCALIZATION_MAP_OUTPUT \
   --rovioli_visualize_map=true \
-  --rovio_enable_frame_visualization=true \
+  --rovio_enable_frame_visualization=false \
   --map_builder_save_image_as_resources=false \
   --datasource_rosbag=$ROSBAG $REST

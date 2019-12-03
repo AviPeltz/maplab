@@ -208,7 +208,7 @@ void DataPublisherFlow::publishVinsState(
       T_G_I, timestamp_ros, visualization::kDefaultMapFrame, &T_G_I_message);
   pub_pose_T_G_I_.publish(T_G_I_message);
   G_I_message.header.stamp = T_G_I_message.header.stamp;
-  G_I_message.header.frame_id = "map";
+  G_I_message.header.frame_id = "base_link";
   G_I_message.pose.pose = T_G_I_message.pose;
   pub_odom_G_I_.publish(G_I_message);
   visualization::publishTF(

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Script to run ROVIOLI from a Euroc rosbag data source.
-# Usage: tutorial_euroc <output save folder> <rosbag path> [<additional rovioli flags>]
+# Script to run ROVIOLI and creating a map from a Rosbag.
+# Usage: kiwicampus_mapping <output save folder> <rosbag path> [<additional rovioli flags>]
 
 LOCALIZATION_MAP_OUTPUT=$1
 ROSBAG=$2
@@ -16,7 +16,7 @@ rosrun rovioli rovioli \
   --datasource_type="rosbag" \
   --save_map_folder="$LOCALIZATION_MAP_OUTPUT" \
   --optimize_map_to_localization_map=false \
-  --rovio_enable_frame_visualization=true \
-  --vio_rosbag_realtime_playback_rate=2.0 \
+  --rovio_enable_frame_visualization=false \
+  # --vio_rosbag_realtime_playback_rate=2.0 \
   --map_builder_save_image_as_resources=false \
   --datasource_rosbag=$ROSBAG $REST

@@ -1,5 +1,5 @@
 id: c63aecb41bfdfd6b7e1fac37c7cbe7bf
-hardware_id: /kiwibot/sensors/imu/data
+hardware_id: /kiwibot/sensors/imu/data_raw
 sensor_type: IMU
 sigmas:
   gyro_noise_density: 2.443461e-04
@@ -9,5 +9,3 @@ sigmas:
 saturation_accel_max_mps2: 150.0
 saturation_gyro_max_radps: 7.5
 gravity_magnitude_mps2: 9.7345
-
-
