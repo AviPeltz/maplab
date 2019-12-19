@@ -201,14 +201,14 @@ bool RovioLocalizationHandler::processAsUpdate(
     const vio::LocalizationResult::ConstPtr& localization_result) {
   CHECK(localization_result != nullptr);
 
-  const double rovio_timestamp_sec =
+  const double rovio_ti// mestamp_sec =
       time_translator_->convertMaplabToRovioTimestamp(
           localization_result->timestamp_ns);
 
   aslam::Transformation T_M_I_filter;
   const vio_common::PoseLookupBuffer::ResultStatus lookup_result =
       T_M_I_buffer_.getPoseAt(localization_result->timestamp_ns, &T_M_I_filter);
-  CHECK(lookup_result != vio_common::PoseLookupBuffer::ResultStatus::kFailed);
+  // CHECK(lookup_result != vio_common::PoseLookupBuffer::ResultStatus::kFailed);
 
   const double gravity_error_angle_deg =
       getLocalizationResultGravityDisparityAngleDeg(

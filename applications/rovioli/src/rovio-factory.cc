@@ -28,7 +28,7 @@ struct RovioBuilder {
   // kNPoses: 0-off, 1: estimate baseframe, 2: (1) + sensor offset
   static constexpr int kNPoses = 1;
   // Maximal number of considered features in the filter state.
-  static constexpr int kMaxNumFeatures = 15;
+  static constexpr int kMaxNumFeatures = 7;
   // Total number of pyramid levels considered.
   static constexpr int kPyramidLevels = 4;
   // Edge length of the patches (in pixel). Must be a multiple of 2!
