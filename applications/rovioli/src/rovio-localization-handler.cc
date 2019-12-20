@@ -201,7 +201,7 @@ bool RovioLocalizationHandler::processAsUpdate(
     const vio::LocalizationResult::ConstPtr& localization_result) {
   CHECK(localization_result != nullptr);
 
-  const double rovio_ti// mestamp_sec =
+  const double rovio_timestamp_sec =
       time_translator_->convertMaplabToRovioTimestamp(
           localization_result->timestamp_ns);
 
